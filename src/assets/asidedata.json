@@ -1,0 +1,6 @@
+[
+    {"title": "new arrival", "url": "/cat/all/", "sub": [{"title":"view all","url":"/cat/all/"},{"title":"cat1","url":"/cat/cat1/"},{"title":"cat2","url":"/cat/cat2"},{"title":"cat3","url":"/cat/cat3"}]},
+    {"title": "cat1", "url": "/cat/cat1/", "sub": [{"title":"sub1","url":"/cat/cat1/sub1"},{"title":"sub2","url":"/cat/cat1/sub2"},{"title":"sub3","url":"/cat/cat1/sub3"}]},
+    {"title": "cat2", "url": "/cat/cat2/", "sub": [{"title":"sub1","url":"/cat/cat2/sub1"},{"title":"sub2","url":"/cat/cat2/sub2"}]},
+    {"title": "cat3", "url": "/cat/cat3/", "sub": [{"title":"sub1","url":"/cat/cat3/sub1"}]}
+]
