@@ -16,11 +16,12 @@
 						</div>
 					</template>
 				</li>
+        <li><i class="icon-search"></i></li>
 			</ul>
 		</div>
-		<div class="nav-search" @click='navSearchToggle'>
+		<!-- <div class="nav-search" @click='navSearchToggle'>
 			<i class="icon-search"></i>
-		</div>
+		</div> -->
   </div>
 </template>
 
@@ -83,21 +84,21 @@ export default {
       ];
     },
     setNavWidth: function() {
-			var ul, list, totalWidth = 0, paddingWidth = 0;
-			ul = this.$el.querySelector('.nav-ul');
-			list = ul.children;
-			[].forEach.call(list,function(item,idx,arr) {
-				totalWidth += item.children[0].offsetWidth;
-			});
-			paddingWidth = (ul.offsetWidth - totalWidth - 0) / list.length;
-			[].forEach.call(list,function(item,idx,arr) {
-				if (idx == 0) {
-					item.style.width = item.children[0].offsetWidth+paddingWidth/2+'px';
-					item.style.textAlign = 'left';
-				} else {
-					item.style.width = item.children[0].offsetWidth+paddingWidth+'px';
-				}
-			});
+			// var ul, list, totalWidth = 0, paddingWidth = 0;
+			// ul = this.$el.querySelector('.nav-ul');
+			// list = ul.children;
+			// [].forEach.call(list,function(item,idx,arr) {
+			// 	totalWidth += item.children[0].offsetWidth;
+			// });
+			// paddingWidth = (ul.offsetWidth - totalWidth - 0) / list.length;
+			// [].forEach.call(list,function(item,idx,arr) {
+			// 	if (idx == 0) {
+			// 		item.style.width = item.children[0].offsetWidth+paddingWidth/2+'px';
+			// 		item.style.textAlign = 'left';
+			// 	} else {
+			// 		item.style.width = item.children[0].offsetWidth+paddingWidth+'px';
+			// 	}
+			// });
 		},
     navSearchToggle: function() {
 			var searchForm = document.querySelector('.nav-search-form-wrap'),
