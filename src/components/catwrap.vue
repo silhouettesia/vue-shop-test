@@ -5,6 +5,10 @@
   </div>
 </template>
 
+<style>
+.wrap {}
+</style>
+
 <script>
 export default {
   name: 'catwrap',

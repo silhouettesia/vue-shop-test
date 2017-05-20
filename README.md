@@ -1,4 +1,4 @@
-# shoptest2
+# shoptest
 
 > A Vue.js project
 

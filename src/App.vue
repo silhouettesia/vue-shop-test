@@ -2,7 +2,19 @@
   <div id="app">
     <div class="topbar">
     	<div class="topbar-wrap">
-    		<div class="right">
+        <div class="left md-topbar">
+          <div class="burger-menu-wrap" @click="mdNavToggle" >
+            <div class="burger-menu">
+              <span :class="{'close': mdNavShow}"></span>
+            </div>
+          </div>
+        </div>
+        <div class="left md-topbar">
+          <div class="topbar-search">
+            <img src="/static/img/search.png">
+          </div>
+        </div>
+    		<div class="right" v-show="false">
     			<i class="icon-crown"></i><a href="#">SIGN IN</a>
     			<i class="icon-heart"></i><a href="#">WISH LIST(0)</a>
     		</div>
@@ -12,11 +24,12 @@
       <div class="header">
     		<div class="logo">
     			<a href="#">
-    				<img src="./assets/logo.png">
+    				<img src="/static/img/logo.png">
     			</a>
+          <p><a href="#">Ben & Janes</a></p>
     		</div>
     	</div>
-      <catnav></catnav>
+      <catnav v-bind:mdNavShow="mdNavShow"></catnav>
       <div class="headerhr"></div>
       <router-view></router-view>
     </div>
@@ -29,9 +42,25 @@ import catnav from './components/catnav'
 import footr from './components/footer'
 export default {
   name: 'app',
+  data() {
+    return {
+      mdNavShow: false,
+    }
+  },
+  watch: {
+    $route: function() {
+      this.mdNavShow = false;
+    }
+  },
   components: {
     catnav,
     footr,
+  },
+  methods: {
+    mdNavToggle() {
+      // document.querySelector('.nav').style.display = 'block';
+      this.mdNavShow = !this.mdNavShow;
+    }
   }
 }
 </script>
@@ -70,12 +99,27 @@ a:hover {
 img {
 	max-width: 100%;
 	width: 100%;
+  border: none;
+}
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset;
+}
+input[type=text]:focus, input[type=password]:focus, textarea:focus {
+  -webkit-box-shadow: 0 0 0 1000px white inset;
 }
 .right {
 	float: right;
 }
 .left {
 	float: left;
+}
+.link-like {
+	cursor: pointer;
+}
+.link-like:hover {
+  text-decoration: underline;
 }
 .icon-crown:before {
 	content: "\265A";
@@ -91,23 +135,21 @@ img {
 	margin-right: 5px;
 	color: white;
 }
-/*.icon-search:before {
-	content: "\E603";
-	font-style: normal;
-	font-size: 12px;
-}*/
 .icon-search {
-	background: url(./assets/search.png) no-repeat center center;
+	background: url(/static/img/search.png) no-repeat center center;
 	background-size: contain;
     width: 15px;
     height: 30px;
     display: inline-block;
 }
+
 .topbar {
 	background-color: rgb(147,147,147);
 	height: 30px;
 	line-height: 30px;
 	font-family: Arial, Helvetica, sans-serif;
+  /*display: none;*/
+  transition: all .3s;
 }
 .topbar a {
 	color: #fff;
@@ -116,237 +158,143 @@ img {
 	width: 1000px;
 	margin: 0 auto;
 }
-.wrap {}
 .header {}
 .logo {
 	padding: 15px 0;
 	margin: 0 auto;
 	width: 200px;
 	text-align: center;
+  transition: all .3s;
 }
 .logo img {
 	/*height: 50px;*/
 }
-.nav {
-	margin: 0 auto;
-	width: 100%;
-	max-width: 1000px;
-	height: 30px;
-	font-size: 0;
-	letter-spacing: 0;
-}
-.nav-ul-wrap {
-	display: inline-block;
-	width: calc(100% - 15px);
-  height: 100%;
-	/*margin-right: -15px;*/
-}
-.nav-ul {
-  height: 100%;
-	list-style: none;
-	cursor: pointer;
-  display: flex;
-}
-.nav-ul>li {
-	/*display: inline-block;*/
-  flex: 1;
-	position: relative;
-	line-height: 30px;
-	font-size: 12px;
-	letter-spacing: 2px;
-	text-align: center;
-	text-transform: uppercase;
-  border: 1px solid #ccc;
-  border-left: 0;
-  border-bottom: none;
-}
-.nav-ul>li:first-child {
-  border-left: 1px solid #ccc;
-  border-radius: 5px 0 0;
-}
-.nav-ul>li:last-child {
-  border-radius: 0 5px 0 0;
-}
-.nav-ul>li:hover .nav-ul-sub-wrap {
-	display: block;
-}
-.nav-ul li a {
-  display: inline-block;
-  width: 100%;
-}
-.nav-ul-sub-wrap {
-	display: none;
-	position: absolute;
-	width: 100%;
-	background-color: #fff;
-	border: 1px solid #E6E6E6;
-	box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-}
-.nav-ul-sub {}
-.nav-ul-sub li {
-	display: block;
-}
-.nav-search {
-	float: right;
-	width: 15px;
-	/*line-height: 30px;*/
-	text-align: center;
-	cursor: pointer;
-}
-.nav-search-form-wrap {
-	width: 100%;
-	height: 50px;
-}
-.nav-search-form {
-	font-size: 0;
-	letter-spacing: 0;
-}
-.nav-search-form input[name='search'] {
-	box-sizing: border-box;
-	width: calc(100% - 100px);
-	padding: 2px 10px;
-	height: 30px;
-	border: 1px solid #ccc;
-	border-right: 0;
-	outline: none;
-}
-.nav-search-form input[name='submit'] {
-	box-sizing: border-box;
-	width: 100px;
-	height: 30px;
-	background: #000;
-	border: 0;
-	color: #fff;
-	cursor: pointer;
+.logo p {
+  display: none;
+  height: 50px;
+  line-height: 50px;
+  font-size: 16px;
+  font-weight: bold;
 }
 .headerhr {
 	border-bottom: 1px solid #ccc;
   width: 98%;
   margin: 0 auto;
 }
-.main {
-	margin: 10px auto;
-	width: 1000px;
+.md-topbar {
+  display: none;
 }
-.aside {
-	float: left;
-	width: 150px;
+.burger-menu {
+  display: block;
+  position: relative;
+  width: 3em;
+  height: 30px;
+  cursor: pointer;
 }
-.aside-header {
-	margin: 5px 0;
-  text-transform: uppercase;
+.burger-menu>span {
+  margin: 0.5em auto;
+  display: block;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  display: block;
+  width: 1.5em;
+  height: 0.25em;
+  background: #939393;
+  border-radius: 3px;
+  transition: transform .2s ease;
 }
-.aside-ul {
-	list-style: none;
-	margin-left: 20px;
+.burger-menu>span:before,.burger-menu>span:after {
+  border-radius: 3px;
+  transition: transform .3s ease;
 }
-.aside-ul li {
-	padding-bottom: 5px;
+.burger-menu>span:before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 1.5em;
+  height: 0.25em;
+  top: -0.5em;
+  background: #939393;
 }
-.content {
-	overflow: hidden;
+.burger-menu>span:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 1.5em;
+  height: 0.25em;
+  top: 0.5em;
+  background: #939393;
 }
-.searchResult {
-	overflow: hidden;
+.burger-menu>span.close {
+  background: transparent;
+  transform: rotate(-180deg);
 }
-.searchResult-header {
-	height: 30px;
+.burger-menu>span.close:before, .burger-menu>span.close:after {
+  transition: transform .3s ease;
 }
-.searchResult-content {
-	overflow: hidden;
+.burger-menu>span.close:before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 1.5em;
+  height: 0.25em;
+  top: 0;
+  background: #939393;
+  transform: rotate(-45deg);
 }
-.searchResult-ul {
-	list-style: none;
-	overflow: hidden;
+.burger-menu>span.close:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 1.5em;
+  height: 0.25em;
+  top: 0;
+  background: #939393;
+  transform: rotate(45deg);
 }
-.searchResult-li {
-	display: inline;
-	float: left;
-	width: 30%;
-	margin-right: 5%;
-	text-align: center;
+.topbar-search {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  vertical-align: bottom;;
+  line-height: 30px;
 }
-.searchResult-li:nth-child(3n) {
-	margin-right: 0;
+.topbar-search img {
+  width: 20px;
 }
-.prod-image {
-	max-width: 100%;
-	width: 100%;
+
+@media screen and (max-width: 1024px) {
+    .logo {
+      width: 150px;
+    }
 }
-.prod-detail {
-	margin: 10px 0 40px;
-}
-.footer {
-	height: 100px;
-	width: 100%;
-	border-top: 1px solid #ccc;
-	text-align: center;
-}
-.about {
-	margin: 20px 0 10px;
-}
-.contact {
-	margin: 10px;
-}
-.contact ul li{
-	display: inline-block;
-	padding: 0 5px;
-}
-.contact img {
-	width: 30px;
-}
+
 @media screen and (max-width: 1000px) {
+  .topbar {
+    background: #fff;
+    color: #939393;
+  }
 	.topbar-wrap {
 		width: 100%;
 	}
 	.topbar-wrap>div {
 		margin-right: 20px;
 	}
-	.main {
-		width: 100%;
-	}
-	.aside {
-		box-sizing: border-box;
-		width: 100%;
-		padding: 5px 15px;
-	}
-	.aside-header {
-		display: inline-block;
-	}
-	.aside-list {
-		display: inline-block;
-	}
-	.aside-ul {
-		margin-left: 0;
-	}
-	.aside-ul li {
-		display: inline;
-		padding: 0 5px;
-		border-left: 1px solid;
-	}
-	.aside-ul li:first-child {
-		border-left: none;
-		padding-left: 0;
-	}
-	.content {
-		box-sizing: border-box;
-		width: 100%;
-		padding: 15px;
-		margin: 0 auto;
-	}
+  .md-topbar {
+    display: block;
+  }
 }
-@media screen and (max-width: 750px) {
-	.searchResult-li {
-		width: 45%;
-		margin-right: 10%;
-	}
-	.searchResult-li:nth-child(2n) {
-		margin-right: 0;
-	}
-	.searchResult-li:nth-child(3n) {
-		margin-right: 10%;
-	}
-}
+
 @media screen and (max-width: 640px) {
+  .header {
+    /*border-top: 4px solid #ccc;*/
+  }
+  .logo img{
+    display: none;
+  }
+  .logo p {
+    display: block;
+  }
 }
 </style>
